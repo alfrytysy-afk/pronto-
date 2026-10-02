@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>برونتو Pronto | تاكسي لباب بيتك في درنة</title>
+<style>
+:root{box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px);
+--y:#FFC400;--k:#0b0b0b;--k2:#161616;--k3:#232323;--t:#f4f4f4;--m:#9a9a9a}
+html{scroll-padding-top:env(safe-area-inset-top,0px);scroll-behavior:smooth}
+*{box-sizing:border-box}
+body{margin:0;background:var(--k);color:var(--t);font-family:Tahoma,"Segoe UI",Arial,sans-serif;line-height:1.7}
+.w{max-width:760px;margin:auto;padding:0 18px}
+header{display:flex;justify-content:space-between;align-items:center;padding:16px 18px;max-width:760px;margin:auto}
+.logo{font-weight:900;font-size:26px;color:var(--y);letter-spacing:1px}
+.logo small{color:var(--t);font-size:13px;font-weight:400;margin-right:6px}
+.btn{display:inline-block;background:var(--y);color:#000;font-weight:800;border:0;border-radius:14px;padding:13px 22px;font-size:16px;text-decoration:none;cursor:pointer;font-family:inherit}
+.btn.o{background:none;border:2px solid var(--y);color:var(--y)}
+.hero{padding:34px 0 26px;text-align:center}
+.hero h1{font-size:34px;line-height:1.35;margin:0 0 12px}
+.hero h1 span{color:var(--y)}
+.hero p{color:var(--m);margin:0 auto 22px;max-width:480px}
+.stripe{height:14px;background:repeating-linear-gradient(45deg,var(--y) 0 18px,var(--k) 18px 36px);margin:10px 0 0}
+h2{font-size:24px;margin:34px 0 14px}
+h2 span{color:var(--y)}
+.opts{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.opt{background:var(--k2);border:2px solid var(--k3);border-radius:18px;padding:18px 10px;text-align:center;cursor:pointer;color:var(--t);font-family:inherit;font-size:16px}
+.opt b{display:block;font-size:19px;margin:6px 0 2px}
+.opt i{font-size:34px;font-style:normal}
+.opt small{color:var(--m);font-size:12.5px}
+.opt.on{border-color:var(--y);background:var(--y);color:#000}
+.opt.on small{color:#333}
+.card{background:var(--k2);border:1px solid var(--k3);border-radius:20px;padding:16px}
+label{display:block;font-size:14px;color:var(--m);margin:12px 0 5px}
+input,select{width:100%;background:var(--k);color:var(--t);border:1.5px solid var(--k3);border-radius:12px;padding:13px;font-size:16px;font-family:inherit}
+input:focus,select:focus{outline:none;border-color:var(--y)}
+.map{overflow:hidden;border-radius:20px;border:1px solid var(--k3)}
+.map svg{display:block;width:100%;height:auto}
+.hint{color:var(--m);font-size:13px;margin:8px 2px 0}
+.pin{cursor:pointer}
+.pin circle{fill:var(--y);stroke:#000;stroke-width:2}
+.pin text{fill:#fff;font-size:13px;font-weight:700;paint-order:stroke;stroke:#000;stroke-width:3px}
+.pin.on circle{fill:#fff;stroke:var(--y);stroke-width:4}
+.steps{display:grid;gap:10px}
+.st{display:flex;gap:14px;align-items:center;background:var(--k2);border-radius:16px;padding:14px}
+.st em{flex:none;width:40px;height:40px;border-radius:50%;background:var(--y);color:#000;font-weight:900;display:grid;place-items:center;font-style:normal;font-size:18px}
+.st p{margin:0}.st p span{color:var(--m);font-size:14px;display:block}
+#msg{margin-top:14px;font-size:14px;color:var(--y);min-height:20px}
+footer{margin-top:40px;padding:26px 18px 34px;text-align:center;color:var(--m);font-size:14px;border-top:1px solid var(--k3)}
+footer b{color:var(--y)}
+[hidden]{display:none!important}
+.gate{min-height:75vh;display:flex;flex-direction:column;justify-content:center;text-align:center;padding:20px 0}
+.gate h1{font-size:30px;margin:0 0 6px}.gate h1 span{color:var(--y)}
+.gate p{color:var(--m);margin:0 0 24px}
+.gate .opt{margin-bottom:12px;padding:26px 10px}
+</style>
+</head>
+<body>
+<header>
+  <div class="logo">PRONTO<small id="brandAr"></small></div>
+  <button class="btn o" id="sw" onclick="show('')" hidden>تغيير</button>
+</header>
+
+<div id="gate" class="w"><div class="gate">
+  <h1>أهلاً في <span>برونتو</span></h1>
+  <p>تاكسي يجيك لباب بيتك في <span id="gc"></span>. تريد الدخول كـ:</p>
+  <button class="opt" onclick="show('c')"><i>🧍</i><b>عميل</b><small>أريد أن أطلب تاكسي</small></button>
+  <button class="opt" onclick="show('d')"><i>🚕</i><b>سائق</b><small>أريد العمل مع برونتو</small></button>
+</div></div>
+<div id="cust" hidden>
+<div class="w">
+  <section class="hero">
+    <h1>تاكسي <span>يجيك لباب بيتك</span><br>في <span id="city"></span></h1>
+    <p id="tagline"></p>
+    <a class="btn" href="#book">اطلب تاكسي</a>
+  </section>
+</div>
+<div class="stripe"></div>
+
+<div class="w">
+  <section id="book">
+    <h2>اختر <span>نوع الخدمة</span></h2>
+    <div class="opts">
+      <button class="opt on" id="oM" onclick="pick('m')"><i>🚕</i><b>تاكسي رجالي</b><small>سائق رجل</small></button>
+      <button class="opt" id="oW" onclick="pick('w')"><i>👩‍✈️</i><b>تاكسي نسائي</b><small>سائقة امرأة، للنساء والعائلات</small></button>
+    </div>
+
+    <h2>اكتب <span>مكانك ووجهتك</span></h2>
+    <div class="card">
+      <label>مكان الاستلام</label>
+      <input id="pick" placeholder="الحي أو الشارع أو أقرب معلم">
+      <label>الوجهة</label>
+      <input id="dest" placeholder="وين تريد أن تذهب؟">
+      <label>اسمك</label>
+      <input id="cn" placeholder="الاسم">
+      <label>رقم هاتفك</label>
+      <input id="ct" type="tel" inputmode="tel" placeholder="09xxxxxxxx">
+      <a class="btn" href="tel:" target="_blank" rel="noopener" style="display:block;text-align:center;width:100%;margin-top:18px" onclick="return callGo(this)">📞 اتصل بالتاكسي الآن</a>
+      <a class="btn o" href="sms:" target="_blank" rel="noopener" style="display:block;text-align:center;width:100%;margin-top:10px" onclick="return smsGo(this)">أو أرسل الطلب برسالة نصية</a>
+      <div id="msg"></div>
+    </div>
+
+    <h2>كيف <span>تشتغل؟</span></h2>
+    <div class="steps">
+      <div class="st"><em>1</em><p>اختر تاكسي رجالي أو نسائي<span>حسب راحتك</span></p></div>
+      <div class="st"><em>2</em><p>اكتب مكانك ووجهتك<span>عشان تقولها للسائق بسرعة</span></p></div>
+      <div class="st"><em>3</em><p>اتصل بنا ويجيك السائق لباب بيتك<span>نرد عليك بسرعة</span></p></div>
+    </div>
+  </section>
+</div>
+
+</div>
+<div id="drv" hidden><div class="w">
+  <section class="hero"><h1>انضم كـ<span>سائق</span></h1><p>للتسجيل لأول مرة، أرسل بياناتك أو اتصل بالدعم الفني: <b style="color:var(--y)" id="sup1"></b></p></section>
+  <div class="card">
+    <label>الاسم</label><input id="dn" placeholder="اسمك الكامل">
+    <label>رقم الهاتف</label><input id="dt" type="tel" inputmode="tel" placeholder="09xxxxxxxx">
+    <label>نوع السيارة ورقم اللوحة</label><input id="dc" placeholder="مثال: هيونداي أكسنت 2015 - لوحة ...">
+    <label>نوع الخدمة</label>
+    <select id="ds"><option>تاكسي رجالي</option><option>تاكسي نسائي (سائقة)</option></select>
+    <a class="btn" href="sms:" target="_blank" rel="noopener" style="display:block;text-align:center;width:100%;margin-top:18px" onclick="joinGo(this)">أرسل طلب الانضمام برسالة</a>
+    <a class="btn o" id="dcall" href="tel:" target="_blank" rel="noopener" style="display:block;text-align:center;width:100%;margin-top:10px">📞 اتصل بالدعم الفني</a>
+    <button class="btn o" style="width:100%;margin-top:10px" onclick="cp(CONFIG.support)">نسخ رقم الدعم</button>
+    <button class="btn o" style="width:100%;margin-top:10px" onclick="cp(joinTxt())">نسخ بيانات الطلب</button>
+    <div id="dtx" class="hint" style="white-space:pre-line;font-size:15px"></div>
+  </div>
+</div></div>
+<div id="adm" hidden><div class="w">
+  <h2>لوحة المالك: <span>محافظ السائقين</span></h2>
+  <p class="hint">كل رحلة تُسجَّل = خصم دينارين للموقع في محفظة السائق. المحفظة تتصفّر تلقائياً كل سبت. هذه الصفحة تظهر لك أنت فقط.</p>
+  <div class="card"><input id="an" placeholder="اسم السائق"><input id="ap" type="tel" placeholder="هاتف السائق" style="margin-top:8px">
+  <button class="btn" style="width:100%;margin-top:12px" id="addD">إضافة سائق</button></div>
+  <div id="dl"></div>
+  <h2 id="tot" style="color:var(--y)"></h2>
+</div></div>
+<footer>
+  <b>PRONTO</b> · <span id="fCity"></span><br>
+  للطلب والاستفسار: <a id="callLink" target="_blank" rel="noopener" style="color:var(--y)"></a><br>
+  <span id="hours"></span><br><button class="btn o" id="adminBtn" hidden onclick="show('a')" style="margin:10px 0;padding:8px 16px;font-size:14px">لوحة المالك</button><br>الدعم الفني: <a id="supLink" target="_blank" rel="noopener" style="color:var(--y)"></a>
+</footer>
+
+<script>
+// ===== إعدادات الموقع: عدّل أي شيء من هنا =====
+var CONFIG = {
+  brandAr: "برونتو",
+  city: "درنة",
+  tagline: "اطلب تاكسي بضغطة وتجيك السيارة لباب بيتك. خدمة سريعة وآمنة، وفيه تاكسي نسائي للنساء والعائلات.",
+  support: "0928433065",      // رقم الدعم الفني (للسائق عند أول تسجيل ولكل الموقع)
+  phoneShow: "0928433065",    // رقم التاكسي: الزر يتصل عليه (غيّره لرقمك)
+  fee: 2,                     // الخصم لكل رحلة (دينار)
+  hours: "نعمل من 6 صباحاً حتى 12 منتصف الليل"
+};
+// ===== نهاية الإعدادات =====
+
+var type = "m";
+function $(i){return document.getElementById(i)}
+$("brandAr").textContent = "· " + CONFIG.brandAr;
+$("city").textContent = CONFIG.city; $("fCity").textContent = "تاكسي " + CONFIG.city + "، ليبيا";
+$("tagline").textContent = CONFIG.tagline; $("hours").textContent = CONFIG.hours;
+$("callLink").textContent = CONFIG.phoneShow; $("callLink").href = "tel:" + CONFIG.phoneShow;
+
+function pick(t){
+  type = t;
+  $("oM").classList.toggle("on", t === "m"); $("oW").classList.toggle("on", t === "w");
+}
+function show(v){
+  $("gate").hidden = !!v; $("cust").hidden = v !== "c"; $("drv").hidden = v !== "d"; $("adm").hidden = v !== "a"; $("sw").hidden = !v;
+  window.scrollTo(0,0);
+}
+function orderTxt(){
+  return "طلب تاكسي برونتو\nالنوع: " + (type === "m" ? "تاكسي رجالي" : "تاكسي نسائي") +
+    "\nالاستلام: " + ($("pick").value.trim() || "-") + "\nالوجهة: " + ($("dest").value.trim() || "-") +
+    "\nالاسم: " + ($("cn").value.trim() || "-") + "\nالهاتف: " + ($("ct").value.trim() || "-");
+}
+function ok(){
+  if(!$("cn").value.trim() || !$("ct").value.trim()){ $("msg").textContent = "فضلاً اكتب اسمك ورقم هاتفك."; return false; }
+  return true;
+}
+function cp(t){
+  var ok=false;
+  try{ navigator.clipboard.writeText(t); ok=true; }catch(e){}
+  if(!ok){ try{ var x=document.createElement("textarea"); x.value=t; document.body.appendChild(x); x.select(); ok=document.execCommand("copy"); x.remove(); }catch(e){} }
+  $("dtx").textContent = ok ? "تم النسخ:\n" + t : "ما انتسخ، انسخه يدوياً:\n" + t;
+}
+function joinTxt(){
+  return "طلب انضمام سائق\nالاسم: " + $("dn").value + "\nالهاتف: " + $("dt").value + "\nالسيارة: " + $("dc").value + "\nالخدمة: " + $("ds").value;
+}
+function joinGo(a){
+  var t = joinTxt();
+  a.href = "sms:" + CONFIG.support + "?&body=" + encodeURIComponent(t);
+  $("dtx").textContent = "إذا ما انفتحت الرسائل، أرسل هذا النص إلى " + CONFIG.support + ":\n" + t;
+}
+function callGo(a){
+  if(!ok()) return false;
+  a.href = "tel:" + CONFIG.phoneShow;
+  $("msg").style.whiteSpace = "pre-line";
+  $("msg").textContent = "إذا ما تم الاتصال، اتصل على " + CONFIG.phoneShow + " وقل:\n" + orderTxt();
+  return true;
+}
+function smsGo(a){
+  if(!ok()) return false;
+  var t = orderTxt();
+  a.href = "sms:" + CONFIG.phoneShow + "?&body=" + encodeURIComponent(t);
+  $("msg").style.whiteSpace = "pre-line";
+  $("msg").textContent = "إذا ما انفتحت الرسائل، أرسل هذا النص إلى " + CONFIG.phoneShow + ":\n" + t;
+  return true;
+}
+$("dcall").href = "tel:" + CONFIG.support;
+$("dtx").textContent = "رقم الدعم الفني: " + CONFIG.support + "\nإذا ما اشتغل زر الاتصال، انسخ الرقم واتصل منه.";
+$("gc").textContent = CONFIG.city;
+$("sup1").textContent = CONFIG.support;
+$("supLink").textContent = CONFIG.support; $("supLink").href = "tel:" + CONFIG.support;
+
+function wk(ts){var d=new Date(ts),x=(d.getDay()+1)%7;return new Date(d.getFullYear(),d.getMonth(),d.getDate()-x).getTime()}
+(async function(){
+  try{
+    if(!window.claude) return;
+    var u = await claude.use("user"); if(!u || !u.isOwner()) return;
+    var db = await claude.use("db"); if(!db) return;
+    $("adminBtn").hidden = false;
+    var D=[],T=[],L=$("dl");
+    function render(){
+      var c=wk(Date.now()),p=wk(c-1),tot=0; L.innerHTML="";
+      D.forEach(function(d){
+        var n=T.filter(function(t){return t.driver===d.id&&t.week===c}).length;
+        var o=T.filter(function(t){return t.driver===d.id&&t.week===p}).length;
+        tot+=n*CONFIG.fee;
+        var e=document.createElement("div"); e.className="card"; e.style.marginTop="10px";
+        e.innerHTML='<b class="a"></b> <span class="b" style="color:var(--m)"></span><div style="font-size:26px;color:var(--y);font-weight:900" class="c"></div><div class="hint d"></div>'+
+          '<button class="btn" style="margin-top:10px;padding:10px 16px" data-a="add" data-id="'+d.id+'">+ رحلة</button> '+
+          '<button class="btn o" style="margin-top:10px;padding:8px 14px" data-a="undo" data-id="'+d.id+'">تراجع</button> '+
+          '<button class="btn o" style="margin-top:10px;padding:8px 14px" data-a="sms" data-id="'+d.id+'">📩 أرسل رصيده للسائق</button>';
+        e.querySelector(".a").textContent=d.name; e.querySelector(".b").textContent=d.phone||"";
+        e.querySelector(".c").textContent=(n*CONFIG.fee)+" دينار ("+n+" رحلة هذا الأسبوع)";
+        e.querySelector(".d").textContent="الأسبوع الماضي: "+(o*CONFIG.fee)+" دينار ("+o+" رحلة)";
+        L.appendChild(e);
+      });
+      $("tot").textContent="مجموع هذا الأسبوع: "+tot+" دينار";
+    }
+    L.onclick=function(ev){
+      var b=ev.target.closest("button"); if(!b) return; var id=b.dataset.id,c=wk(Date.now());
+      if(b.dataset.a==="add") db.collection("trips").doc("t"+Date.now()).set({driver:id,ts:Date.now(),week:c});
+      else if(b.dataset.a==="sms"){
+        var d=D.filter(function(x){return x.id===id})[0],n=T.filter(function(t){return t.driver===id&&t.week===c}).length;
+        location.href="sms:"+(d.phone||"")+"?&body="+encodeURIComponent("برونتو - محفظتك هذا الأسبوع: "+(n*CONFIG.fee)+" دينار ("+n+" رحلة). تتصفّر كل سبت.");
+      }
+      else{var l=T.filter(function(t){return t.driver===id&&t.week===c}).sort(function(a,b){return a.ts-b.ts}).pop();
+        if(l) db.collection("trips").doc(l.id).delete();}
+    };
+    $("addD").onclick=function(){var n=$("an").value.trim(); if(!n) return;
+      db.collection("drivers").doc("d"+Date.now()).set({name:n,phone:$("ap").value.trim()}); $("an").value=""; $("ap").value="";};
+    function rows(s){return s.docs.map(function(x){var o=x.data();o.id=x.id;return o})}
+    db.collection("drivers").onSnapshot(function(s){D=rows(s);render()});
+    db.collection("trips").onSnapshot(function(s){T=rows(s);render()});
+  }catch(e){}
+})();
+</script>
+</body>
+</html>
